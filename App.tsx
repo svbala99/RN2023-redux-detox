@@ -31,7 +31,7 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Text>{`${Config.ENV}`}</Text>
+      <Text>{Config?.ENV}</Text>
     </SafeAreaView>
   );
 }
