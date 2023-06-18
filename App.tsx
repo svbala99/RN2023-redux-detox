@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Config from 'react-native-config';
 import React from 'react';
 
 const styles = StyleSheet.create({
@@ -30,7 +31,7 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Text>Hello world</Text>
+      <Text>{`${Config.ENV}`}</Text>
     </SafeAreaView>
   );
 }
