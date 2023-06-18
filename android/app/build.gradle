@@ -1,4 +1,14 @@
 apply plugin: "com.android.application"
+project.ext.envConfigFiles = [
+   productiondebug: ".env.production",
+   productionrelease: ".env.production",
+   developmentrelease: ".env.development",
+   developmentdebug: ".env.development",
+   stagingrelease: ".env.staging",
+   stagingdebug: ".env.staging"
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
@@ -92,6 +102,33 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "rn2023reduxdetox.production"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.rn2023reduxdetox"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "rn2023reduxdetox.staging"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.rn2023reduxdetox"
+        }
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "rn2023reduxdetox.development"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.rn2023reduxdetox"
+        }
+    }
 
     namespace "com.rn2023reduxdetox"
     defaultConfig {
@@ -121,6 +158,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.

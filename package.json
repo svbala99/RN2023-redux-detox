@@ -6,9 +6,28 @@
         "android": "react-native run-android",
         "ios": "react-native run-ios",
         "lint": "eslint .",
+        "commit": "yarn lint && git add . && git-cz",
         "start": "react-native start",
+        "rstart": "yarn start -- --reset-cache",
         "test": "jest",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "clean": "cd android && ./gradlew clean",
+        "adb-r": "adb reverse tcp:8081 tcp:8081",
+        "android:staging": "react-native run-android --mode=stagingdebug --appId rn2023reduxdetox.staging",
+        "android:staging-release": "react-native run-android --mode=stagingrelease --appId rn2023reduxdetox.staging",
+        "android:dev": "react-native run-android --mode=developmentdebug --appId rn2023reduxdetox.development",
+        "android:dev-release": "react-native run-android --mode=developmentrelease --appId rn2023reduxdetox.development",
+        "android:prod": "react-native run-android --mode=productiondebug --appId rn2023reduxdetox.production",
+        "android:prod-release": "react-native run-android --mode=productionrelease --appId rn2023reduxdetox.production",
+        "ba": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+        "ra": "rm -rf android/app/src/main/res/drawable-hdpi &&  rm -rf android/app/src/main/res/drawable-mdpi &&  rm -rf android/app/src/main/res/drawable-xhdpi && rm -rf android/app/src/main/res/drawable-xxhdpi && rm -rf android/app/src/main/res/drawable-xxxhdpi && rm -rf android/app/src/main/res/raw && npx jetify",
+        "androidProductionReleaseBundle": "yarn clean && cd android && ./gradlew bundleProductionRelease && killall -9 java && open ./android/app/build/outputs/bundle/production/release",
+        "androidDevelopmentDebugAPK": "yarn clean && cd android && ./gradlew assembleDevelopmentDebug && killall -9 java && open ./android/app/build/outputs/apk/development/debug",
+        "androidDevelopmentReleaseAPK": "yarn clean && cd android && ./gradlew assembleDevelopmentRelease && killall -9 java && open ./android/app/build/outputs/apk/development/release",
+        "androidProductionDebugAPK": "yarn clean &&& cd android && ./gradlew assembleProductionDebug && killall -9 java && open ./android/app/build/outputs/apk/production/debug",
+        "androidProductionReleaseAPK": "yarn clean &&& cd android && ./gradlew assembleProductionRelease && killall -9 java && open ./android/app/build/outputs/apk/production/release",
+        "androidStagingDebugAPK": "yarn clean && cd android && ./gradlew assembleStagingDebug && killall -9 java && open ./android/app/build/outputs/apk/staging/debug",
+        "androidStagingReleaseAPK": "yarn clean &&& cd android && ./gradlew assembleStagingRelease && killall -9 java && open ./android/app/build/outputs/apk/staging/release"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
@@ -23,7 +42,8 @@
     },
     "dependencies": {
         "react": "18.2.0",
-        "react-native": "0.71.10"
+        "react-native": "0.71.10",
+        "react-native-config": "^1.5.1"
     },
     "devDependencies": {
         "@babel/core": "^7.22.5",
